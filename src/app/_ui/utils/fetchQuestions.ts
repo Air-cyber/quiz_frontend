@@ -1,3 +1,4 @@
+'use client';
 import axios from "axios";
 export interface QuizQuestion {
   question: string;

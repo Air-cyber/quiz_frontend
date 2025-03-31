@@ -1,35 +1,71 @@
 const fs = require('fs');
 const path = require('path');
 
-// Target directory (adjust if needed)
-const targetDir = './src';
+const hookFixes = {
+  // Admin Dashboard
+  'admin/dashboard/page.tsx': {
+    76: ['router']
+  },
+  // Leaderboard
+  'admin/leaderboard/[testCode]/page.tsx': {
+    72: ['router']
+  },
+  // Report Card
+  'report-card/page.tsx': {
+    20: ['router']
+  },
+  // Quiz Component
+  '_ui/components/Quiz.tsx': {
+    67: ['fetchQuestions'],
+    142: ['setupTimer'],
+    154: ['handleNextQuestion', 'quizFinished', 'selectedAnswerIndex']
+  },
+  // Quiz Results
+  '_ui/components/QuizResults.tsx': {
+    58: ['fetchLeaderboard']
+  },
+  // Report Card Component
+  '_ui/components/ReportCard.tsx': {
+    173: ['calculatePerformanceStats', 'fetchTopicsForSubject']
+  },
+  // Subject Select
+  '_ui/components/SubjectSelect.tsx': {
+    128: ['isValidTestInfo']
+  }
+};
 
-// Process all .js/.ts/.tsx files
-const processFiles = (dir) => {
-  const files = fs.readdirSync(dir);
+const processFiles = () => {
+  Object.entries(hookFixes).forEach(([filePath, fixes]) => {
+    const fullPath = path.join('src/app', filePath);
+    if (fs.existsSync(fullPath)) {
+      let content = fs.readFileSync(fullPath, 'utf8');
+      let modified = false;
 
-  files.forEach(file => {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
+      content = content.split('\n').map((line, index) => {
+        const lineNumber = index + 1;
+        if (fixes[lineNumber]) {
+          if (line.includes('useEffect') || line.includes('useCallback')) {
+            const closingBracketIndex = line.lastIndexOf(']');
+            if (closingBracketIndex > 0) {
+              modified = true;
+              const beforeDeps = line.substring(0, closingBracketIndex);
+              const afterDeps = line.substring(closingBracketIndex);
+              return `${beforeDeps}, ${fixes[lineNumber].join(', ')}${afterDeps}`;
+            }
+          }
+        }
+        return line;
+      }).join('\n');
 
-    if (stat.isDirectory()) {
-      processFiles(filePath); // Recursively process subdirectories
-    } 
-    else if (file.endsWith('.js') || file.endsWith('.ts') || file.endsWith('.tsx')) {
-      let content = fs.readFileSync(filePath, 'utf8');
-
-      // Replace standard imports with dynamic imports
-      
-      // Add 'next/dynamic' import if missing
-      if (!content.includes("from 'next/dynamic'") && content.includes('dynamic(() => import')) {
-        content = "import dynamic from 'next/dynamic';\n" + content;
+      if (modified) {
+        fs.writeFileSync(fullPath, content);
+        console.log(`✅ Fixed dependencies in ${filePath}`);
       }
-
-      fs.writeFileSync(filePath, content);
-      console.log(`Updated: ${filePath}`);
+    } else {
+      console.warn(`⚠️  File not found: ${filePath}`);
     }
   });
 };
 
-processFiles(targetDir);
-console.log('Dynamic imports added successfully!');
+processFiles();
+console.log('🎉 All React Hook dependency fixes applied!');

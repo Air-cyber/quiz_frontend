@@ -1,3 +1,4 @@
+'use client';
 // Authentication utility functions for client-side
 
 // Define a User type for better type checking
