@@ -17,5 +17,5 @@ A quiz app with a countdown timer and a list of questions.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/codingwithdidem/quizapp.git
-cd quizapp
+git clone https://github.com/Air-cyber/quiz_frontend.git
+cd quiz_frontend
