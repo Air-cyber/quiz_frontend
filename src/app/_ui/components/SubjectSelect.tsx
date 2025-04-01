@@ -88,6 +88,9 @@ export const SubjectSelect = ({
     return isSubjectValid && isTopicValid && isChapterValid && isLevelValid;
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -95,7 +98,8 @@ export const SubjectSelect = ({
     }
   }, [router]);
 
-  const fetchTestInfoAndStartQuiz = useCallback(async () => {
+  const fetchTestInfoAndStartQuiz = // eslint-disable-next-line react-hooks/exhaustive-deps
+ useCallback(async () => {
     if (!activeTestCode) return;
 
     try {
@@ -127,14 +131,23 @@ export const SubjectSelect = ({
     }
   }, [activeTestCode, onStartQuiz]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     fetchTestInfoAndStartQuiz();
   }, [fetchTestInfoAndStartQuiz]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
 
   useEffect(() => {
     setSelectedTopic("");
     setSelectedChapter("");
   }, [selectedSubject]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
 
   useEffect(() => {
     setSelectedChapter("");

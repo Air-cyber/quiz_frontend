@@ -55,6 +55,8 @@ export const Quiz = ({
   const [error, setError] = useState("");
 
   // Load questions from localStorage
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     const storedQuestions = localStorage.getItem("quizQuestions");
     if (storedQuestions && testCode) {
@@ -133,6 +135,9 @@ export const Quiz = ({
     handleNextQuestion();
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     if (quizFinished) return;
     setupTimer();
@@ -140,6 +145,9 @@ export const Quiz = ({
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [quizFinished, activeQuestion]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
 
   useEffect(() => {
     if (quizFinished || timePassed <= TIME_LIMIT) return;

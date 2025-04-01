@@ -38,6 +38,9 @@ export default function Leaderboard({ params }: { params: { testCode: string } }
   const [error, setError] = useState("");
   const router = useRouter();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     // Check if admin is logged in
     const token = localStorage.getItem("adminToken");

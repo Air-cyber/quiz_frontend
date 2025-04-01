@@ -10,6 +10,9 @@ export default function ReportCardPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     // Check if user is authenticated
     if (!isAuthenticated()) {

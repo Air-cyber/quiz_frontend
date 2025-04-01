@@ -1,12 +1,18 @@
 'use client';
+
+// Utility to check if code is running in browser environment
+const isBrowser = () => typeof window !== 'undefined';
+
 const playSound = (sound: string) => {
   const audio = new Audio(`/sounds/${sound}`);
   audio.play();
 
   // If page changes, stop playing sound
-  window.addEventListener("beforeunload", () => {
-    audio.pause();
-  });
+  if (isBrowser()) {
+    window.addEventListener("beforeunload", () => {
+      audio.pause();
+    });
+  }
 };
 
 export const playCorrectAnswer = () => {

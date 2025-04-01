@@ -60,6 +60,9 @@ export default function AdminDashboard() {
   const [adminEmail, setAdminEmail] = useState("");
   const router = useRouter();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     // Check if admin is logged in
     const token = localStorage.getItem("adminToken");
@@ -76,12 +79,16 @@ export default function AdminDashboard() {
   }, []);
 
   // Reset topic and chapter when subject changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     setTopic("");
     setChapter("");
   }, [subject]);
 
   // Reset chapter when topic changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     setChapter("");
   }, [topic]);

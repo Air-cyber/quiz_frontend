@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCurrentUser, logout, User } from "../utils/authUtils";
 import {
+
+  // Utility to check if code is running in browser environment
+
   FaUser,
   FaSignOutAlt,
   FaChartLine,
@@ -13,6 +16,7 @@ import {
   FaSun,
   FaMoon
 } from "react-icons/fa";
+const isBrowser = () => typeof window !== 'undefined';
 
 export const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -27,13 +31,13 @@ export const Navbar = () => {
 
     // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemDark = (isBrowser() ? window.matchMedia('(prefers-color-scheme: dark)').matches : null);
 
     if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
       setDarkMode(true);
-      document.documentElement.classList.add('dark');
+      (isBrowser() ? document.documentElement.classList.add('dark') : null);
     } else {
-      document.documentElement.classList.remove('dark');
+      (isBrowser() ? document.documentElement.classList.remove('dark') : null);
     }
   }, []);
 
@@ -48,10 +52,10 @@ export const Navbar = () => {
     setDarkMode(newDarkMode);
 
     if (newDarkMode) {
-      document.documentElement.classList.add('dark');
+      (isBrowser() ? document.documentElement.classList.add('dark') : null);
       localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      (isBrowser() ? document.documentElement.classList.remove('dark') : null);
       localStorage.setItem('theme', 'light');
     }
   };

@@ -11,6 +11,9 @@ import confettiAnimation from "@/ui/assets/animations/confetti.json";
 import { DonutChart } from "./DonutChart";
 import { FaTrophy, FaChartLine, FaRedo } from "react-icons/fa";
 
+// Utility to check if code is running in browser environment
+const isBrowser = () => typeof window !== 'undefined';
+
 interface QuizResult {
   correctAnswers: number;
   wrongAnswers: number;
@@ -127,7 +130,7 @@ export const Result = ({
   ]);
 
   const handleRetry = () => {
-    window.location.reload();
+    (isBrowser() ? window.location.reload() : null);
   };
 
   const handleViewReportCard = () => {

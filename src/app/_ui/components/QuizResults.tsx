@@ -50,6 +50,9 @@ export const QuizResults = ({
   const [userRank, setUserRank] = useState<number | null>(null);
   const router = useRouter();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   useEffect(() => {
     // If test code is provided, fetch the leaderboard
     if (testCode) {

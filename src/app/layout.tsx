@@ -1,7 +1,10 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { useEffect, useState, Inter } from "next/font/google";
 import { Navbar } from "./_ui/components/Navbar";
 import Script from "next/script";
+
+// Utility to check if code is running in browser environment
+const isBrowser = () => typeof window !== 'undefined';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +33,7 @@ export default function RootLayout({
                 handleResize();
                 return handleResize;
             }
-            window.addEventListener('resize', setViewportProperty(document.documentElement));
+            (isBrowser() ? window.addEventListener('resize', setViewportProperty((isBrowser() ? document.documentElement)) : null) : null);
           `}
         </Script>
         <Navbar />
