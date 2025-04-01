@@ -1,3 +1,5 @@
+'use client';
+import { isBrowser } from '@/app/_ui/utils/browser';
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {

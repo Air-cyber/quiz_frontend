@@ -1,4 +1,5 @@
 'use client';
+import { isBrowser } from '@/app/_ui/utils/browser';
 // Authentication utility functions for client-side
 
 // Define a User type for better type checking

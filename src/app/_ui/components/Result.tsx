@@ -1,4 +1,5 @@
 "use client";
+import { isBrowser } from '../utils/browser';
 import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
@@ -10,9 +11,6 @@ import axios from "axios";
 import confettiAnimation from "@/ui/assets/animations/confetti.json";
 import { DonutChart } from "./DonutChart";
 import { FaTrophy, FaChartLine, FaRedo } from "react-icons/fa";
-
-// Utility to check if code is running in browser environment
-const isBrowser = () => typeof window !== 'undefined';
 
 interface QuizResult {
   correctAnswers: number;

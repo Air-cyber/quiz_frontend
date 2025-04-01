@@ -1,18 +1,19 @@
 'use client';
 
-// Utility to check if code is running in browser environment
-const isBrowser = () => typeof window !== 'undefined';
+import { isBrowser } from './browser';
 
+/**
+ * Play a sound file from the public/sounds directory
+ */
 const playSound = (sound: string) => {
+  if (!isBrowser()) return; // Skip on server
+
   const audio = new Audio(`/sounds/${sound}`);
   audio.play();
 
-  // If page changes, stop playing sound
-  if (isBrowser()) {
-    window.addEventListener("beforeunload", () => {
-      audio.pause();
-    });
-  }
+  isBrowser() && window.addEventListener("beforeunload", () => {
+    audio.pause();
+  });
 };
 
 export const playCorrectAnswer = () => {

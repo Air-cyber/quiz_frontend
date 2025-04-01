@@ -1,3 +1,4 @@
+'use client';
 import "./globals.css";
 import { useEffect, useState, Inter } from "next/font/google";
 import { Navbar } from "./_ui/components/Navbar";
@@ -33,7 +34,7 @@ export default function RootLayout({
                 handleResize();
                 return handleResize;
             }
-            (isBrowser() ? window.addEventListener('resize', setViewportProperty((isBrowser() ? document.documentElement)) : null) : null);
+            (isBrowser() ? isBrowser() ? window.addEventListener : null('resize', setViewportProperty((isBrowser() ? isBrowser() ? document.documentElement : null)) : null) : null);
           `}
         </Script>
         <Navbar />

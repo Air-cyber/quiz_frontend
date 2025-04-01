@@ -6,11 +6,10 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  // Ensure server components don't try to use client-side only features
+  // For Next.js 13+ app directory
   experimental: {
-    // Only needed for Next.js 13+
     appDir: true,
-  },
+  }
 }
 
 module.exports = nextConfig
